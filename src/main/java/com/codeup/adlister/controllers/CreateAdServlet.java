@@ -17,6 +17,7 @@ import java.util.List;
 public class CreateAdServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
+            request.getSession().setAttribute("IntendedRedirect","/ads/create");
             response.sendRedirect("/login");
             return;
         }
@@ -26,6 +27,7 @@ public class CreateAdServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (request.getSession().getAttribute("user") == null) {
+            request.getSession().setAttribute("IntendedRedirect","/ads/create");
             response.sendRedirect("/login");
             return;
         }

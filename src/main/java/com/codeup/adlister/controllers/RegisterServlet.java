@@ -26,7 +26,11 @@ public class RegisterServlet extends HttpServlet {
 
         // validate input
 
+
+
         List<String> ErrorList = new ArrayList<>();
+        if (DaoFactory.getUsersDao().findByUsername(username) != null) {ErrorList.add("* Username is unavailable");}
+        if (DaoFactory.getUsersDao().findByEmail(email) != null) {ErrorList.add("* Email is already registered!");}
         if (username.isEmpty()){ErrorList.add("* Invalid Username");}
         if (email.isEmpty()){ErrorList.add("* Invalid Email");}
         if (password.isEmpty()){ErrorList.add("* Invalid Password");}

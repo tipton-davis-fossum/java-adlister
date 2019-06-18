@@ -36,7 +36,14 @@ public class LoginServlet extends HttpServlet {
 
         if (validAttempt) {
             request.getSession().setAttribute("user", user);
+            if (request.getSession().getAttribute("IntendedRedirect") != null){
+                String redir = (String)request.getSession().getAttribute("IntendedRedirect");
+                request.getSession().removeAttribute("IntendedRedirect");
+                response.sendRedirect(redir);
+                return;
+            }
             response.sendRedirect("/profile");
+            return;
         } else {
             request.setAttribute("FormError","Incorrect Username or Password!");
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
