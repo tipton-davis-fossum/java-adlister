@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,12 +13,17 @@
         <form action="/login" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input id="username" name="username" class="form-control" type="text">
+                <input id="username" name="username" class="form-control" type="text" value="<%= request.getParameter("username") != null? request.getParameter("username") : "" %>">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input id="password" name="password" class="form-control" type="password">
+                <input id="password" name="password" class="form-control" type="password" value="<%= request.getParameter("password") != null? request.getParameter("password") : "" %>">
             </div>
+            <c:if test="${FormError != null}">
+                <div class="mb-2 alert alert-danger" role="alert">
+                    ${FormError}
+                </div>
+            </c:if>
             <input type="submit" class="btn btn-primary btn-block" value="Log In">
         </form>
     </div>
