@@ -1,6 +1,5 @@
 package com.codeup.adlister.dao;
 
-
 import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Category;
 import com.codeup.adlister.models.User;
