@@ -19,7 +19,7 @@
             <h5 class="card-title">Your ad will need a title, description, and categories.</h5>
             <hr>
             <c:if test="${sessionScope.message != null}">
-                <aside class="alert alert-danger" role="alert">
+                <aside class="alert" role="alert">
                         ${sessionScope.message}
                 </aside>
             </c:if>
@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label for="category">Category</label>
-                    <textarea id="category" name="category" class="form-control" type="text">${sessionScope.description}</textarea>
+                    <textarea id="category" name="category" class="form-control" type="text">${sessionScope.category}</textarea>
                 </div>
 
                 <input type="submit" class="btn btn-block my-2 nuts" value="Create Ad">

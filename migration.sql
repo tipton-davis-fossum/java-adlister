@@ -21,7 +21,6 @@ CREATE TABLE ads
     description TEXT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users (id)
-        ON DELETE CASCADE
 );
 
 CREATE TABLE categories (
@@ -32,9 +31,7 @@ CREATE TABLE categories (
 
 CREATE TABLE ad_categories (
     ad_id INT UNSIGNED NOT NULL,
-    category_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (ad_id) REFERENCES users(id)
-        ON DELETE CASCADE,
+    category_id VARCHAR(64) NOT NULL,
+    FOREIGN KEY (ad_id) REFERENCES users(id),
     FOREIGN KEY (category_id) REFERENCES categories (category)
-        ON DELETE CASCADE
 );
