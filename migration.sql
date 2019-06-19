@@ -15,10 +15,10 @@ CREATE TABLE users (
 
 CREATE TABLE ads
 (
-    id          INT UNSIGNED    NOT NULL AUTO_INCREMENT,
-    user_id     INT UNSIGNED    NOT NULL,
-    title       VARCHAR(128)    NOT NULL,
-    description TEXT            NOT NULL,
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id INT UNSIGNED NOT NULL,
+    title VARCHAR(128) NOT NULL,
+    description TEXT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users (id)
         ON DELETE CASCADE
@@ -35,6 +35,6 @@ CREATE TABLE ad_categories (
     category_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (ad_id) REFERENCES users(id)
         ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES categories (id)
+    FOREIGN KEY (category_id) REFERENCES categories (category)
         ON DELETE CASCADE
 );
