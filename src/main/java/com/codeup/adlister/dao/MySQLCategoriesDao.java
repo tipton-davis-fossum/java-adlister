@@ -47,7 +47,7 @@ public class MySQLCategoriesDao implements Categories {
             rs.next();
             return rs.getLong(1);
         } catch (SQLException e) {
-            throw new RuntimeException("Error creating new user", e);
+            throw new RuntimeException("Error creating new category", e);
         }
     }
 
