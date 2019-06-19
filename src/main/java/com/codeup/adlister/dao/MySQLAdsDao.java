@@ -7,7 +7,7 @@ import com.mysql.cj.jdbc.Driver;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputFilter;
+//import java.io.ObjectInputFilter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,12 +59,10 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public List<Ad> adsByUser(User user) {
-
-        String userAdsQuery = "SELECT * FROM ads WHERE user_id = " + user.getId();
-        PreparedStatement statement = null;
-
         try {
-            statement = connection.prepareStatement(userAdsQuery);
+            String userAdsQuery = "SELECT * FROM ads WHERE user_id = ?";
+            PreparedStatement statement = connection.prepareStatement(userAdsQuery);
+            statement.setLong(1,user.getId());
             ResultSet rs = statement.executeQuery();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
