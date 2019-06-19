@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "controllers.RegisterServlet", urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
@@ -16,20 +18,28 @@ public class RegisterServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
 
         // validate input
-        boolean inputHasErrors = username.isEmpty()
-            || email.isEmpty()
-            || password.isEmpty()
-            || (! password.equals(passwordConfirmation));
 
+
+
+        List<String> ErrorList = new ArrayList<>();
+        if (DaoFactory.getUsersDao().findByUsername(username) != null) {ErrorList.add("* Username is unavailable");}
+        if (DaoFactory.getUsersDao().findByEmail(email) != null) {ErrorList.add("* Email is already registered!");}
+        if (username.isEmpty()){ErrorList.add("* Invalid Username");}
+        if (email.isEmpty()){ErrorList.add("* Invalid Email");}
+        if (password.isEmpty()){ErrorList.add("* Invalid Password");}
+        if ((! password.equals(passwordConfirmation)) || passwordConfirmation.isEmpty()){ErrorList.add("* Passwords must match!");}
+
+        boolean inputHasErrors = ErrorList.size()>0;
         if (inputHasErrors) {
-            response.sendRedirect("/register");
+            request.setAttribute("FormError",String.join("</br>",ErrorList));
+            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
             return;
         }
 

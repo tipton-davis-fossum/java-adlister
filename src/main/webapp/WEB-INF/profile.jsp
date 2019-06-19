@@ -8,7 +8,9 @@
     </jsp:include>
 </head>
 <body>
-    <jsp:include page="/WEB-INF/partials/navbar.jsp" />
+    <jsp:include page="/WEB-INF/partials/navbar.jsp" >
+        <jsp:param name="current" value="profile" />
+    </jsp:include>
 
     <div class="container-fluid">
         <h1>Welcome, ${sessionScope.user.username}!</h1>
