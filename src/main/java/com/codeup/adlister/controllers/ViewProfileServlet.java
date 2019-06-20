@@ -6,6 +6,7 @@ import com.codeup.adlister.models.User;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -23,7 +24,6 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet(name = "controllers.ViewProfileServlet", urlPatterns = "/profile")
 public class ViewProfileServlet extends HttpServlet {
     private final String UPLOAD_DIRECTORY = "img";
-    private Object obj = new Object();
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
@@ -33,7 +33,6 @@ public class ViewProfileServlet extends HttpServlet {
         String appPath = request.getServletContext().getRealPath("");
         String savePath = appPath + File.separator + UPLOAD_DIRECTORY;
         File fileSaveDir = new File(savePath);
-//        System.out.println(savePath);
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdir();
         }
@@ -64,12 +63,31 @@ public class ViewProfileServlet extends HttpServlet {
             } catch (Exception ex) {
                 request.setAttribute("message", "File Upload Failed due to " + ex);
             }
-
         }else{
-            request.setAttribute("message",
-                    "Sorry this Servlet only handles file upload request");
+            User user = (User)request.getSession().getAttribute("user");
+            String username =request.getParameter("username");
+            String email =request.getParameter("email");
+            request.setAttribute("username",username);
+            request.setAttribute("email",email);
+            List<String> ErrorList = new ArrayList<>();
+
+            if (DaoFactory.getUsersDao().findByUsernameNotID(username, user.getId()) != null) {ErrorList.add("* Username is unavailable");}
+            if (DaoFactory.getUsersDao().findByEmailNotID(email, user.getId()) != null) {ErrorList.add("* Email is already registered!");}
+
+            boolean inputHasErrors = ErrorList.size()>0;
+            if (inputHasErrors) {
+                request.setAttribute("FormError",String.join("</br>",ErrorList));
+                request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+                return;
+            }
+            user.setUsername(username);
+            user.setEmail(email);
+            request.getSession().setAttribute("user",user);
+            DaoFactory.getUsersDao().update(user);
+            request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
         }
     }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
