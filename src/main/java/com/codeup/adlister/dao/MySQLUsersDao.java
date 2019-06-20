@@ -21,6 +21,18 @@ public class MySQLUsersDao implements Users {
         }
     }
     @Override
+    public User findByEmailNotID(String email, long ID) {
+        String query = "SELECT * FROM users WHERE email = ? and id != ? LIMIT 1";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, email);
+            stmt.setLong(2, ID);
+            return extractUser(stmt.executeQuery());
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding a user by email not having that ID", e);
+        }
+    }
+    @Override
     public User findByEmail(String email) {
         String query = "SELECT * FROM users WHERE email = ? LIMIT 1";
         try {
@@ -32,6 +44,18 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+    @Override
+    public User findByUsernameNotID(String username, long ID) {
+        String query = "SELECT * FROM users WHERE username = ? and id != ? LIMIT 1";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, username);
+            stmt.setLong(2, ID);
+            return extractUser(stmt.executeQuery());
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding a user by username not having that ID", e);
+        }
+    }
     @Override
     public User findByUsername(String username) {
         String query = "SELECT * FROM users WHERE username = ? LIMIT 1";
@@ -46,7 +70,20 @@ public class MySQLUsersDao implements Users {
 
 
 
-
+    @Override
+    public void update(User user) {
+        String updateQuery = "UPDATE users set username = ?, email = ? where id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(updateQuery);
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getEmail());
+            stmt.setLong(3, user.getId());
+            stmt.executeUpdate();
+            return;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating user", e);
+        }
+    }
 
     @Override
     public Long insert(User user) {
