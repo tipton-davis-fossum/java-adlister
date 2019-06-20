@@ -73,6 +73,8 @@ public class ViewProfileServlet extends HttpServlet {
 
             if (DaoFactory.getUsersDao().findByUsernameNotID(username, user.getId()) != null) {ErrorList.add("* Username is unavailable");}
             if (DaoFactory.getUsersDao().findByEmailNotID(email, user.getId()) != null) {ErrorList.add("* Email is already registered!");}
+            if (username.isEmpty()){ErrorList.add("* Invalid Username");}
+            if (email.isEmpty()){ErrorList.add("* Invalid Email");}
 
             boolean inputHasErrors = ErrorList.size()>0;
             if (inputHasErrors) {
