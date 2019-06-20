@@ -12,70 +12,67 @@
 <body>
 
 <jsp:include page="/WEB-INF/partials/navbar.jsp"/>
-
-<%--<div class="container-fluid">--%>
-
-<%--<h1>Here are all the ads!</h1>--%>
-
-<%--<br>--%>
-
-<%--&lt;%&ndash;Search ads&ndash;%&gt;--%>
-
-
-<%--</div>--%>
-
 <div class="container">
-    <form class="d-flex justify-content-center" action="" METHOD="GET">
-        <div class="row input-group input-group-lg">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-lg">Search our ads</span>
-            </div>
-            <input type="text" name="title" id="title" class="form-control" aria-label="Sizing example input"
-                   aria-describedby="inputGroup-sizing-lg" placeholder="search">
-
-            <button type="submit" class="btn btn-secondary btn-lg btn-block">Search</button>
+    <div class="row input-group input-group-lg">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-lg">Search our ads</span>
         </div>
-    </form>
+        <input type="text" name="title" id="title" class="form-control" aria-label="Sizing example input"
+               aria-describedby="inputGroup-sizing-lg" placeholder="search">
+    </div>
+    <div id="adList" class="row">
+    </div>
 
-    <c:forEach var="ad" items="${ads}">
-        <div class="col-12">
-            <%
-                String query = request.getParameter("title");
-                request.setAttribute("search", request.getParameter("title"));
-            %>
-            <c:if test="${search == null}">
-                <h2><c:out value="${ad.title}"/></h2>
-                <p><c:out value="${ad.description}"/><p>
-                <form method="get" action="">
-                    <input id="search1" type="hidden" placeholder="${ad.userId}" value="${ad.userId}">
-                </form>
-                <hr>
-            </c:if>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous">
+    </script>
+    <script>
+        let ads = [];
 
-            <c:if test="${search.toString() == ''}">
-                <h2><c:out value="${ad.title}"/></h2>
-                <p><c:out value="${ad.description}"/><p>
-                <form method="get" action="">
-                    <input id="search2" type="hidden" placeholder="${ad.userId}" value="${ad.userId}">
-                </form>
-                <hr>
-            </c:if>
+        let searchBar = document.querySelector("#title");
+        searchBar.addEventListener('input',updateAds);
 
-            <c:if test="${search.length() != 0}">
-                <c:if test="${search != null}">
-                    <c:if test="${ad.title.toLowerCase().contains(search.toLowerCase())}">
-                        <h2><c:out value="${ad.title}"/></h2>
-                        <p><c:out value="${ad.description}"/><p>
-                        <form method="get" action="">
-                            <input id="search3" type="hidden" placeholder="${ad.userId}" value="${ad.userId}">
-                        </form>
-                        <hr>
-                    </c:if>
-                </c:if>
-            </c:if>
+        <c:forEach var="ad" items="${ads}">
+            ads.push(
+                {
+                    title:"${ad.title}",
+                    description:"${ad.description}",
+                    userID:${ad.userId}
+            });
+        </c:forEach>
 
-        </div>
-    </c:forEach>
+        function renderAd(ad) {
+            let html='<div class="col-12">' +
+                '<h2>'+ad.title+'</h2>' +
+                '<p>'+ad.description+'</p>' +
+                '<hr>' +
+                '</div>';
+            return html;
+        }
+        function renderAds(ads) {
+            let html = '';
+            for(let i = 0; i < ads.length; i++) {
+                html += renderAd(ads[i]);
+                console.log(html);
+            }
+            return html;
+        }
+        function updateAds() {
+            let nameFilter = searchBar.value;
+            let filteredAds = [];
+            // iterate through function for specific coffee
+            ads.forEach(function(ad) {
+                // filter out coffee based on name
+                if (ad.title.toLowerCase().includes(nameFilter.toLowerCase())) {
+                    filteredAds.push(ad);
+                }
+            });
+            $("#adList").html(renderAds(filteredAds));
+        }
+        updateAds();
+    </script>
 </div>
 </body>
 </html>
