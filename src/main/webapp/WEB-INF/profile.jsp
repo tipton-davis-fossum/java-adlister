@@ -17,7 +17,7 @@
 
         <c:forEach var="ad" items="${requestScope.adsList}">
 
-            <div class="card">
+            <div class="card allTheAds">
                 <div class="card-body">
                     <h3>${ad.title}</h3>
                     <p>${ad.description}</p>
