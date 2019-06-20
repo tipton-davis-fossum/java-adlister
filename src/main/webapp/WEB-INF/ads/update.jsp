@@ -9,7 +9,7 @@
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
-        <jsp:param name="title" value="Create a new Ad" />
+        <jsp:param name="title" value="Update an Ad" />
     </jsp:include>
 </head>
 <body>
