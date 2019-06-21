@@ -35,7 +35,7 @@
     <div class="container-fluid p-3">
         <div class="row">
             <div class="col-8 mx-auto">
-                <div class="row">
+                <div class="row my-3">
                     <div class="col-sm-12 col-md-3">
                         <div class="profileImage mx-auto" >
                             <img id="profileImage" class="profileImage"  src="/img/profile_${sessionScope.profileUser.getId()}" alt=""/>
@@ -65,14 +65,7 @@
                         ${message}
                     </c:if>
                 </div>
-                <c:forEach var="ad" items="${requestScope.adsList}">
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <h3>${ad.title}</h3>
-                            <p>${ad.description}</p>
-                        </div>
-                    </div>
-                </c:forEach>
+                <jsp:include page="/WEB-INF/partials/search.jsp"/>
             </div>
         </div>
     </div>
