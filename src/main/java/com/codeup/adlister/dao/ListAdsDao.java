@@ -39,7 +39,7 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
-    public Ad getByAdId(Long id) {
+    public Ad getAdById(Long id) {
         return null;
     }
 

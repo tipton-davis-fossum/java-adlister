@@ -95,7 +95,7 @@ public class ViewProfileServlet extends HttpServlet {
                 boolean inputHasErrors = ErrorList.size() > 0;
                 if (inputHasErrors) {
                     List<Ad> AdsList = DaoFactory.getAdsDao().adsByUser(profileUser);
-                    request.setAttribute("adsList",AdsList);
+                    request.setAttribute("ads",AdsList);
                     request.setAttribute("FormError", String.join("</br>", ErrorList));
                     request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
                     return;
@@ -119,7 +119,7 @@ public class ViewProfileServlet extends HttpServlet {
         User profileUser = DaoFactory.getUsersDao().findById(id);
         request.getSession().setAttribute("profileUser",profileUser);
         List<Ad> AdsList = DaoFactory.getAdsDao().adsByUser(profileUser);
-        request.setAttribute("adsList",AdsList);
+        request.setAttribute("ads",AdsList);
         request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
     }
 }

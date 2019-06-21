@@ -1,5 +1,7 @@
 package com.codeup.adlister.models;
 
+import com.codeup.adlister.dao.DaoFactory;
+
 public class Ad {
     private long id;
     private long userId;
@@ -49,5 +51,18 @@ public class Ad {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDisplay(){
+        User adAuthor = DaoFactory.getUsersDao().findById(this.userId);
+        String htmlBuffer=
+                "<div class='card my-3'>" +
+                "   <div class='card-body'>" +
+                "       <h3>"+this.title+"</h3>" +
+                "       <p>"+this.description+"</p>" +
+                "       <a href='/profile/"+adAuthor.getId()+"'>"+adAuthor.getUsername()+"</a>"+
+                "   </div>" +
+                "</div>";
+        return htmlBuffer;
     }
 }
