@@ -72,29 +72,11 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    // search for specific ad by title
-//    public List<Ad> searchAds(String queryTerm) {
-//        List<Ad> ads = new ArrayList<>();
-//
-//        try {
-//            PreparedStatement statement = connection.prepareStatement("SELECT * FROM ads WHERE title LIKE ?");
-//            String queryTermSQL = "%" + queryTerm + "%";
-//            statement.setString(1, queryTermSQL);
-//
-//            ResultSet rs = statement.executeQuery();
-//            while (rs.next()) {
-//                Long id = rs.getLong("id");
-//                Long userId = rs.getLong("user_id");
-//                String title = rs.getString("title");
-//                String description = rs.getString("description");
-//                Ad ad = new Ad(id, userId, title, description);
-//                ads.add(ad);
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Error retreiving ads.", e);
-//        }
-//        return ads;
-//    }
+    @Override
+    public void update(Ad ad) {
+
+    }
+
 
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
