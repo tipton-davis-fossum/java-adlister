@@ -13,4 +13,8 @@ public interface Ads {
     Long insert(Ad ad);
     // show user their ads
     List<Ad> adsByUser(User user);
+
+    void update(Ad ad);
+
+    Ad getByAdId(Long id);
 }
