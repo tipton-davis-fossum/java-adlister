@@ -12,13 +12,15 @@
 <body>
 
 <jsp:include page="/WEB-INF/partials/navbar.jsp"/>
-<div class="container">
-    <div class="row input-group input-group-lg">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-lg">Search our ads</span>
+<div class="container-fluid p-3">
+    <div class="row">
+        <div class="col-8 mx-auto input-group input-group-lg">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Search our ads</span>
+            </div>
+            <input type="text" name="title" id="title" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-lg" placeholder="search">
         </div>
-        <input type="text" name="title" id="title" class="form-control" aria-label="Sizing example input"
-               aria-describedby="inputGroup-sizing-lg" placeholder="search">
     </div>
     <div id="adList" class="row">
     </div>
@@ -44,7 +46,7 @@
         </c:forEach>
 
         function renderAd(ad) {
-            let html='<div class="col-12">' +
+            let html='<div class="col-8 mx-auto">' +
                 '<h2>'+ad.title+'</h2>' +
                 '<p>'+ad.description+'</p>' +
                 '<hr>' +
@@ -62,10 +64,11 @@
         function updateAds() {
             let nameFilter = searchBar.value;
             let filteredAds = [];
-            // iterate through function for specific coffee
+            // iterate through function for specific ads
             ads.forEach(function(ad) {
-                // filter out coffee based on name
-                if (ad.title.toLowerCase().includes(nameFilter.toLowerCase())) {
+                // filter out ads based on name
+                if (ad.title.toLowerCase().includes(nameFilter.toLowerCase()) ||
+                    ad.description.toLowerCase().includes(nameFilter.toLowerCase())) {
                     filteredAds.push(ad);
                 }
             });

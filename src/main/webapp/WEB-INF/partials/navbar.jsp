@@ -10,7 +10,7 @@
         <ul class="navbar-nav ml-auto">
             <c:choose>
                 <c:when test="${user != null}">
-                    <li class="nav-item <c:if test="${param.current.equals('profile')}">active</c:if>"><a href="/profile" class="nav-link">Profile (${user.getUsername()})</a></li>
+                    <li class="nav-item <c:if test="${param.current.equals('profile')}">active</c:if>"><a href="/profile/${user.getId()}" class="nav-link">Profile (${user.getUsername()})</a></li>
                     <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
                 </c:when>
                 <c:otherwise>
