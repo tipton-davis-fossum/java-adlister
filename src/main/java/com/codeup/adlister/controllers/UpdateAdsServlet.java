@@ -19,7 +19,7 @@ public class UpdateAdsServlet {
 
             String getId = request.getParameter("id");
             Long getAdId = Long.parseLong(getId);
-            Ad ad = DaoFactory.getAdsDao().getByAdId(getAdId);
+            Ad ad = DaoFactory.getAdsDao().getAdById(getAdId);
             request.setAttribute("ad", ad);
 
             request.getRequestDispatcher("/WEB-INF/ads/update.jsp").forward(request, response);

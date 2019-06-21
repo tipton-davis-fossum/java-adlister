@@ -16,5 +16,5 @@ public interface Ads {
 
     void update(Ad ad);
 
-    Ad getByAdId(Long id);
+    Ad getAdById(Long id);
 }
