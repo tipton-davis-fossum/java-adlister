@@ -10,79 +10,70 @@
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
-        <jsp:param name="title" value="adlister" />
+        <jsp:param name="title" value="adlister"/>
     </jsp:include>
 </head>
 <body>
-<jsp:include page="/WEB-INF/partials/navbar.jsp" />
+<jsp:include page="/WEB-INF/partials/navbar.jsp"/>
 
-<form action="/ads/update/" method="POST">
-    <%--<c: var="ad" items="${ad}"></c:>--%>
-    <div class="form-group col3">
-        <label for="title">Old Title: ${ad.title}</label>
-        <input id="title" name="title" class="form-control" type="text" placeholder="Updated Title">
-        <%--</div>--%>
-        <%--<div class="form-group col3">--%>
-        <label for="description">Old Description: ${ad.description}</label>
-        <input id="description" name="description" class="form-control" type="text" placeholder="Updated Description">
-        <input id="ad.id" name="ad.id" class="form-control" type="hidden" value="${ad.id}">
-    </div>
-    <div>
-    <input id="submit" type="submit" class="btn btn-primary col3" value="Update">
-</form>
+<div class="container-fluid">
+    <form action="/ads/update/" method="POST">
 
-
-<script>
-    //Functions to check that the username is not blank. If the input is empty for a username, the submit button is disabled.
-    let title = document.getElementById("title");
-    let description = document.getElementById("description");
-    let emptyTitle = true;
-    let emptyDescription = true;
-    title.oninput = function(){
-        let titleInput = document.getElementById("title").value;
-        if(titleInput.length > 0 ){
-            document.getElementById("submit").removeAttribute("disabled");
-            console.log(emptyTitle);
-            emptyTitle = false;
-            console.log(emptyTitle);
-        }
-        else{
-            emptyUsername = true;
-        }
-    };
-    description.oninput = function(){
-        let descInput = document.getElementById("description").value;
-        if(descInput.length > 0 ){
-            document.getElementById("submit").removeAttribute("disabled");
-            console.log(emptyTitle);
-            emptyTitle = false;
-            console.log(emptyTitle);
-        }
-        else{
-            emptyUsername = true;
-        }
-    };
-    document.getElementById("submit").onmouseover = function() {
-        let titleInput = document.getElementById("title").value;
-        let descInput = document.getElementById("description").value;
-        if (titleInput.length > 0 && descInput.length > 0) {
-
-            console.log(emptyTitle, emptyDescription);
-            emptyTitle = false;
-            emptyDescription = false;
-            console.log(emptyTitle, emptyDescription);
-            document.getElementById("submit").removeAttribute("disabled")
-        } else {
-            emptyTitle = true;
-            emptyDescription = true;
-            document.getElementById("submit").setAttribute("disabled", "")
-        }
-    }
-</script>
-
-
-
-
+        <div class="form-group">
+            <label for="adTitle">Former title: ${ad.title}</label>
+            <input id="adTitle" class="form-control" type="text" placeholder="Ad Title">
+            <label for="adDescription">Former description: ${ad.description}</label>
+            <input id="adDescription" class="form-control" type="text" placeholder="Default input">
+            <button id="adSubmit" class="btn" type="submit">Submit edits</button>
+        </div>
+    </form>
 </div>
+
+        <script>
+            let adTitle = document.getElementById("adTitle");
+            let adDescription = document.getElementById("adDescription");
+
+            let emptyTitle;
+            let emptyDescription;
+
+            adTitle.oninput = function changeAdTitle () {
+                let adTitleInput = document.getElementById("adTitle").value;
+
+                if (adTitleInput.length > 0) {
+                    document.getElementById("adSubmit").removeAttribute("disabled");
+                    emptyTitle = false;
+                } else {
+                    alert("Please fill in the title section.");
+                }
+            }
+
+            adDescription.oninput = function changeAdDescription () {
+                let adDescriptionInput = document.getElementById("adDescription").value;
+
+                if (adDescriptionInput.length > 0) {
+                    document.getElementById("adSubmit").removeAttribute("disabled");
+                    emptyDescription = false;
+                } else {
+                    alert("Please fill in the description section.");
+                }
+            }
+
+            document.getElementById("submit").onclick = function () {
+
+                let inputAdTitle = document.getElementById("adTitle").value;
+                let inputAdDescription = document.getElementById("adDescription").value;
+
+                if (inputAdTitle.length > 0 && inputAdDescription.length > 0) {
+                    emptyTitle = false;
+                    emptyDescription = false;
+                    document.getElementById("submit").removeAttribute("disabled", "");
+                } else {
+                    emptyTitle = true;
+                    emptyDescription = true;
+                    document.getElementById("submit").setAttribute("disabled", "");
+                }
+            }
+
+        </script>
 </body>
 </html>
