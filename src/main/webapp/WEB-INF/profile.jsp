@@ -46,7 +46,7 @@
                         <h4 id="emailDisplay" class="text-center text-md-left">${sessionScope.profileUser.email}</h4>
                         <c:if test="${sessionScope.profileUser.id == sessionScope.user.id}">
                             <h5 id="editDisplay" class="text-center text-md-left"><i id="EditProfile" class="fas fa-user-edit"></i></h5>
-                            <form id="editProfileForm" method="post" style="display:none">
+                            <form id="editProfileForm" class="text-center text-md-left" method="post" style="display:none">
                                 <input id="username"  type="text" name="username" placeholder="${sessionScope.profileUser.username}" value="<c:if test="${requestScope.username != null}">${requestScope.username}</c:if><c:if test="${requestScope.username == null}">${sessionScope.profileUser.username}</c:if>"/><br/>
                                 <input id="email"  type="text" name="email" placeholder="${sessionScope.profileUser.email}" value="<c:if test="${requestScope.email != null}">${requestScope.email}</c:if><c:if test="${requestScope.email == null}">${sessionScope.profileUser.email}</c:if>"/><br/>
                                 <c:if test="${FormError != null}">
@@ -54,7 +54,7 @@
                                             ${FormError}
                                     </div>
                                 </c:if>
-                                <button type="submit">Submit</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </c:if>
                     </div>
@@ -71,11 +71,6 @@
     </div>
 
     <c:if test="${sessionScope.profileUser.id == sessionScope.user.id}">
-        <script
-                src="https://code.jquery.com/jquery-3.4.1.min.js"
-                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-                crossorigin="anonymous">
-        </script>
         <script>
             <c:if test="${FormError != null}">
                 $("#usernameDisplay").hide();

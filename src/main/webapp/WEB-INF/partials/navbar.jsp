@@ -1,5 +1,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<style>
+    .nav-item{
+        padding-top:8px;
+        padding-bottom:8px;
+    }
+</style>
+
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark py-0">
     <!-- Brand and toggle get grouped for better mobile display -->
     <a class="mr-3 text-light" href="/"><i class="fas fa-home"></i></a>
     <a class="navbar-brand" href="/ads">Adlister</a>
