@@ -37,11 +37,9 @@ public class MessagesServlet extends HttpServlet {
             List<Message> messages = DaoFactory.getMessagesDao().getMessagesBetweenUsers(user, messageUser);
             Collections.reverse(messages);
 
+            DaoFactory.getMessagesDao().setUnreadsForUsers(messageUser,user);
 
             if (request.getParameter("oldMessages") != null) {
-//                response.setContentType("text/plain");
-//            System.out.println(request.getParameter("oldMessages"));
-//                response.getWriter().write(request.getParameter("oldMessages"));
                 PrintWriter out = response.getWriter();
 
                 String htmlBuffer = "";

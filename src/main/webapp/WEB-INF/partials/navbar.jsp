@@ -1,12 +1,20 @@
+<%@ page import="com.codeup.adlister.dao.DaoFactory" %>
+<%@ page import="com.codeup.adlister.models.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
     .nav-item{
         padding-top:8px;
         padding-bottom:8px;
     }
+    #mailNav{
+        position:relative;
+        top:-1px;
+        left:4px;
+    }
     .nav-item .fa-envelope{
         position:relative;
-        top:5px;
+        top:2px;
+        left:-3px;
     }
 </style>
 
@@ -29,7 +37,18 @@
         <ul class="navbar-nav ml-auto">
             <c:choose>
                 <c:when test="${user != null}">
-                    <li class="nav-item <c:if test="${param.current.equals('messages')}">active</c:if>"><a href="/messages" id="mailNav" class="nav-link"><i class="fas fa-envelope"></i></a></li>
+                    <li class="nav-item <c:if test="${param.current.equals('messages')}">active</c:if>">
+                        <a href="/messages" id="mailNav" class="nav-link">
+                            <% int unreadCount = (DaoFactory.getMessagesDao().getUnreadsForUser((User)
+                                    request.getSession().getAttribute("user"))).size();%>
+<%--                            <c:if test="<%=unreadCount != 0%>">--%>
+                                <span class="badge badge-danger">
+                                    <%=unreadCount%>
+                                </span>
+<%--                            </c:if>--%>
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </li>
                     <li class="nav-item <c:if test="${param.current.equals('profile')}">active</c:if>"><a href="/profile/${user.getId()}" class="nav-link">Profile (${user.getUsername()})</a></li>
                     <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
                 </c:when>

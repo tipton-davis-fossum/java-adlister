@@ -49,7 +49,7 @@
                             <img id="profileImage" class="profileImage"  src="/img/profile_${sessionScope.profileUser.getId()}" alt=""/>
                         </div>
                     </div>
-                    <div class="col-sm-11 col-md-8">
+                    <div class="col-sm-12 col-md-8">
                         <h3 id="usernameDisplay" class="text-center text-md-left">${sessionScope.profileUser.username}</h3>
                         <h4 id="emailDisplay" class="text-center text-md-left">${sessionScope.profileUser.email}</h4>
                         <c:if test="${sessionScope.profileUser.id == sessionScope.user.id}">
@@ -66,7 +66,7 @@
                             </form>
                         </c:if>
                     </div>
-                    <div class="col">
+                    <div class="col-sm-12 col-md-1 text-center">
                         <c:if test="${sessionScope.profileUser.id != sessionScope.user.id}">
                             <a href="/messages/${sessionScope.profileUser.id}" id="mailUser" class="text-right text-md-left">
                                 <i class="fas fa-envelope-open"></i>

@@ -7,6 +7,8 @@ public class Message {
     private long fromID;
     private long toID;
     private String content;
+    private boolean unread;
+
     private String authorName;
     private String toName;
 
@@ -19,11 +21,12 @@ public class Message {
         this.content = content;
     }
 
-    public Message(long id, long fromID, long toID, String content) {
+    public Message(long id, long fromID, long toID, String content, boolean unread) {
         this.id = id;
         this.fromID = fromID;
         this.toID = toID;
         this.content = content;
+        this.unread = unread;
     }
 
     public long getId() {
@@ -89,5 +92,13 @@ public class Message {
 
     public void setToName(String toName) {
         this.toName = toName;
+    }
+
+    public boolean isUnread() {
+        return unread;
+    }
+
+    public void setUnread(boolean unread) {
+        this.unread = unread;
     }
 }

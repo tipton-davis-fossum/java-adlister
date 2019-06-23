@@ -56,6 +56,32 @@ public class MySQLMessagesDao implements Messages {
             throw new RuntimeException("Error retrieving your messages", e);
         }
     }
+
+    @Override
+    public List<Message> getUnreadsForUser(User user) {
+        try {
+            String messageByIDQuery = "SELECT * FROM messages WHERE toID = ? and unread=1";
+            PreparedStatement statement = connection.prepareStatement(messageByIDQuery);
+            statement.setLong(1,user.getId());
+            ResultSet rs = statement.executeQuery();
+            return createMessagesFromResults(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving unreads for user with id: "+user.getId(), e);
+        }
+    }
+    @Override
+    public void setUnreadsForUsers(User fromUser,User toUser) {
+        try {
+            String messageByIDQuery = "UPDATE messages SET unread = 0 WHERE fromID = ? and toID = ? and unread=1";
+            PreparedStatement statement = connection.prepareStatement(messageByIDQuery);
+            statement.setLong(1,fromUser.getId());
+            statement.setLong(2,toUser.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error setting unreads for user with id: "+toUser.getId(), e);
+        }
+    }
+
     @Override
     public List<Message> getConversationsIncludingUser(User user) {
         try {
@@ -92,7 +118,8 @@ public class MySQLMessagesDao implements Messages {
                 rs.getLong("id"),
                 rs.getLong("fromID"),
                 rs.getLong("toID"),
-                rs.getString("content")
+                rs.getString("content"),
+                rs.getBoolean("unread")
         );
     }
 

@@ -11,6 +11,8 @@ public interface Messages {
 
     List<Message> getMessagesBetweenUsers(User user1,User user2);
     List<Message> getConversationsIncludingUser(User user);
+    List<Message> getUnreadsForUser(User user);
+    void setUnreadsForUsers(User fromUser,User toUser);
 
     Message getMessageById(Long id);
 }

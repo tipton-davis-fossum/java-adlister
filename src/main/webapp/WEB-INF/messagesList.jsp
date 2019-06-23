@@ -1,3 +1,7 @@
+<%@ page import="com.codeup.adlister.models.User" %>
+<%@ page import="com.codeup.adlister.dao.DaoFactory" %>
+<%@ page import="com.codeup.adlister.models.Message" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -22,6 +26,9 @@
             -webkit-box-shadow: 2px 2px 8px -7px rgba(0,0,0,0.75);
             -moz-box-shadow: 2px 2px 8px -7px rgba(0,0,0,0.75);
             box-shadow: 2px 2px 8px -7px rgba(0,0,0,0.75);
+        }
+        .unread{
+            border-left:10px solid #f22;
         }
     </style>
 </head>
@@ -49,6 +56,7 @@
             fromID:${message.fromID},
             toID:${message.toID},
             content:"${message.content}",
+            unread:${message.unread},
             authorName:"${message.authorName}",
             toName:"${message.toName}",
         });
@@ -58,7 +66,8 @@
         let mainID = (message.fromID == ${sessionScope.user.id} ? message.toID : message.fromID);
         let mainName = (message.fromID == ${sessionScope.user.id} ? message.toName : message.authorName);
         let htmlBuffer =
-            "<div class='messageListing card my-2' onclick=location.href=\"/messages/" +mainID+"\">"+
+            "<div class='messageListing" + (message.unread == true ? " unread " : "") +
+            " card my-2' onclick=location.href=\"/messages/" +mainID+"\">"+
                 "<div class='card-header p-1 pl-2'>" +
                     "<a href='/profile/"+mainID+"'>"+mainName+"</a>" +
                 "</div>"+
