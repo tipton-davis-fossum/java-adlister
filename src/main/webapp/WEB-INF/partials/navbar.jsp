@@ -4,6 +4,10 @@
         padding-top:8px;
         padding-bottom:8px;
     }
+    .nav-item .fa-envelope{
+        position:relative;
+        top:5px;
+    }
 </style>
 
 <script
@@ -25,6 +29,7 @@
         <ul class="navbar-nav ml-auto">
             <c:choose>
                 <c:when test="${user != null}">
+                    <li class="nav-item <c:if test="${param.current.equals('messages')}">active</c:if>"><a href="/messages" id="mailNav" class="nav-link"><i class="fas fa-envelope"></i></a></li>
                     <li class="nav-item <c:if test="${param.current.equals('profile')}">active</c:if>"><a href="/profile/${user.getId()}" class="nav-link">Profile (${user.getUsername()})</a></li>
                     <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
                 </c:when>
