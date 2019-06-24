@@ -1,9 +1,12 @@
+CREATE DATABASE IF NOT EXISTS adlister_db;
+
 USE adlister_db;
 
 DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS ad_categories;
+DROP TABLE IF EXISTS messages;
 
 CREATE TABLE users (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE ,
@@ -34,4 +37,15 @@ CREATE TABLE ad_categories (
     category_id VARCHAR(64) NOT NULL,
     FOREIGN KEY (ad_id) REFERENCES users(id),
     FOREIGN KEY (category_id) REFERENCES categories (category)
+);
+
+CREATE TABLE messages (
+     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+     fromID INT UNSIGNED NOT NULL,
+     toID INT UNSIGNED NOT NULL,
+     content TEXT NOT NULL,
+     unread TINYINT(1) NOT NULL DEFAULT 1,
+     PRIMARY KEY (id),
+     FOREIGN KEY (fromID) REFERENCES users(id) ON DELETE CASCADE,
+     FOREIGN KEY (toID) REFERENCES users(id) ON DELETE CASCADE
 );

@@ -15,7 +15,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getSession().getAttribute("user") != null) {
-            response.sendRedirect("/profile");
+            response.sendRedirect("/profile/"+((User)request.getSession().getAttribute("user")).getId());
             return;
         }
         request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect(redir);
                 return;
             }
-            response.sendRedirect("/profile");
+            response.sendRedirect("/profile/"+user.getId());
             return;
         } else {
             request.setAttribute("FormError","Incorrect Username or Password!");
