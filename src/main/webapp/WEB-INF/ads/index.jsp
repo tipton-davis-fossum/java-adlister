@@ -13,7 +13,7 @@
     <h1 align="center">Here Are all the ads!</h1>
 
     <c:forEach var="ad" items="${ads}">
-        <a href="/update">
+        <a href="ads/delete">
             <div class="cardAd col-md-4" style="word-wrap: break-word;">
                 <h2>${ad.title}</h2>
                 <p>${ad.description}</p>
