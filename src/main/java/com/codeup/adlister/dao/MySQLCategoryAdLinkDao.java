@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MySQLCategoryAdLinkDao {
-    private Connection connection = null;
+    private Connection connection;
 
     public MySQLCategoryAdLinkDao(Config config) {
         try {
@@ -26,39 +26,65 @@ public class MySQLCategoryAdLinkDao {
 
 
     public void addAdToCategory (Ad ad, Category category){
-
-        String query = "insert into category_ad (ad_id, category_id) values (?,?) ";
+        String query = "insert into ad_categories (ad_id, category_id) values (?,?) ";
         try {
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getId());
-            stmt.setString(2, category.getCategory());
+            stmt.setLong(2, category.getId());
             stmt.executeUpdate();
-            ResultSet rs = stmt.getGeneratedKeys();
-            rs.next();
-
         } catch (SQLException e) {
             throw new RuntimeException("Error creating record in ad category table", e);
         }
     }
-
-    public List<String> findCategories (Ad ad) {
-        String query = "SELECT categories.category FROM categories JOIN category_ad ON category_ad.category_id = categories.category JOIN ads a on category_ad.ad_id = a.id WHERE a.id = " + ad.getId();
+    public List<Ad> findAdsFromCategory (Category category) {
+        String query = "SELECT ads.* FROM ads " +
+                "JOIN ad_categories ON ad_categories.ad_id = ads.id" +
+                " where ad_categories.category_id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, category.getId());
             ResultSet rs = stmt.executeQuery();
-            return createCategoriesList(rs);
+            return createAdsFromResults(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding categories by ad id", e);
+        }
+    }
+    public List<Category> findCategories (Ad ad) {
+        String query = "SELECT categories.* FROM categories " +
+                "JOIN ad_categories ON ad_categories.category_id = categories.id" +
+                " where ad_categories.ad_id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, ad.getId());
+            ResultSet rs = stmt.executeQuery();
+            return createCategoriesFromResults(rs);
 
         } catch (SQLException e) {
             throw new RuntimeException("Error finding categories by ad id", e);
         }
-
     }
 
-    private List<String> createCategoriesList(ResultSet rs) throws SQLException {
-        List<String> categories = new ArrayList<>();
+    private List<Category> createCategoriesFromResults(ResultSet rs) throws SQLException {
+        List<Category> categories = new ArrayList<>();
         while (rs.next()) {
-            categories.add(rs.getString(1));
+            categories.add(new Category(rs.getLong(1),rs.getString(2)));
         }
         return categories;
+    }
+    private Ad extractAd(ResultSet rs) throws SQLException {
+        return new Ad(
+                rs.getLong("id"),
+                rs.getLong("user_id"),
+                rs.getString("title"),
+                rs.getString("description")
+        );
+    }
+
+    private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
+        List<Ad> ads = new ArrayList<>();
+        while (rs.next()) {
+            ads.add(extractAd(rs));
+        }
+        return ads;
     }
 }

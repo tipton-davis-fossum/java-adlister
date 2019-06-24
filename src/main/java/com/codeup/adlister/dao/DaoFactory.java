@@ -31,7 +31,7 @@ public class DaoFactory {
         return categoriesDao;
     }
 
-    public static MySQLCategoryAdLinkDao getMySQLCategoryAdLinkDao() {
+    public static MySQLCategoryAdLinkDao getCategoryAdLinkDao() {
         if (categoryAdLinkDao == null) {
             categoryAdLinkDao = new MySQLCategoryAdLinkDao(config);
         }

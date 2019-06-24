@@ -22,6 +22,9 @@ public class CreateAdServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
+        List<Category> categories = DaoFactory.getCategoriesDao().all();
+        request.setAttribute("categories", categories);
+
         request.getRequestDispatcher("/WEB-INF/ads/create.jsp")
             .forward(request, response);
     }
@@ -34,11 +37,15 @@ public class CreateAdServlet extends HttpServlet {
         }
         String title = request.getParameter("title");
         String description = request.getParameter("description");
+        String[] categories = request.getParameterValues("category");
+
+//        String categories = request.getParameter("category");
 
 
         List<String> ErrorList = new ArrayList<>();
         if (title.isEmpty()){ErrorList.add("* Title cannot be empty!");}
         if (description.isEmpty()){ErrorList.add("* Description cannot be empty!");}
+//        if (categories.isEmpty()){ErrorList.add("* Categories cannot be empty!");}
 
         boolean inputHasErrors = ErrorList.size()>0;
         if (inputHasErrors) {
@@ -47,13 +54,20 @@ public class CreateAdServlet extends HttpServlet {
             return;
         }
 
+//        String[] CatList = categories.trim().split("\\\\s*,\\\\s*");
+
+
         User user = (User) request.getSession().getAttribute("user");
         Ad ad = new Ad(
             user.getId(),
             title,
             description
         );
-        DaoFactory.getAdsDao().insert(ad);
+        ad.setId(DaoFactory.getAdsDao().insert(ad));
+        for(String cat : categories) {
+            Category curCat = DaoFactory.getCategoriesDao().findCategoryByName(cat);
+            DaoFactory.getCategoryAdLinkDao().addAdToCategory(ad,curCat);
+        }
         response.sendRedirect("/ads");
     }
 }
