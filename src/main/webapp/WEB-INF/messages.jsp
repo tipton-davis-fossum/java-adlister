@@ -9,7 +9,8 @@
         #MessageHolder{
             height:400px;
             max-height:400px;
-            overflow:scroll;
+            overflow-y:scroll;
+            word-wrap: break-word;
         }
         .Author{
             font-size:0.8em;
@@ -56,6 +57,7 @@
             fromID:${message.fromID},
             toID:${message.toID},
             content:"${message.content}",
+            unread:${message.unread},
             htmlDisplay:"${message.getDisplay(sessionScope.user)}"
         });
     </c:forEach>

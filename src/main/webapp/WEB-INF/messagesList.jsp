@@ -30,6 +30,9 @@
         .unread{
             border-left:10px solid #f22;
         }
+        .ounread{
+            border-left:10px solid #66f;
+        }
     </style>
 </head>
 <body>
@@ -65,8 +68,10 @@
     function renderMessage(message) {
         let mainID = (message.fromID == ${sessionScope.user.id} ? message.toID : message.fromID);
         let mainName = (message.fromID == ${sessionScope.user.id} ? message.toName : message.authorName);
+        let unread = (message.unread == true ?
+            (message.toID == ${sessionScope.user.id} ? " unread " : " ounread ") : "");
         let htmlBuffer =
-            "<div class='messageListing" + (message.unread == true ? " unread " : "") +
+            "<div class='messageListing" + unread +
             " card my-2' onclick=location.href=\"/messages/" +mainID+"\">"+
                 "<div class='card-header p-1 pl-2'>" +
                     "<a href='/profile/"+mainID+"'>"+mainName+"</a>" +

@@ -66,14 +66,22 @@ public class Message {
         User messageAuthor = DaoFactory.getUsersDao().findById(this.fromID);
         String color;
         if(messageAuthor.getId() == curUser.getId()){
-            color="style='background-color:#eee'";
+            color="'background-color:#eee';";
         }else{
-            color="style='background-color:#ccc'";
+            color="'background-color:#ccc';";
+            if(this.unread){
+                color="'background-color:#fcc';";
+            }
         }
-        String htmlBuffer = "<div class='row' "+color+">" +
-            "<a class='Author' href='/profile/"+messageAuthor.getId()+"'><span class='w-100 mb-3'>"
-            + messageAuthor.getUsername() + "</span>" +"</a>"+
-            "<p class='w-100 mb-0'>" + this.content + "</p>" +
+        String htmlBuffer = "<div class='row' style="+color+">" +
+            "<div class='col-12'>"+
+                "<a class='Author' href='/profile/"+messageAuthor.getId()+"'>" +
+                    "<span class='w-100 mb-3'>"
+                        + messageAuthor.getUsername() +
+                    "</span>" +
+                "</a>"+
+                "<p class='w-100 mb-0'>" + this.content + "</p>" +
+                "</div>"+
             "</div>";
         return htmlBuffer;
     }
