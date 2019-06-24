@@ -1,6 +1,5 @@
 package com.codeup.adlister.dao;
 
-import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Category;
 import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
@@ -15,7 +14,7 @@ public class MySQLCategoriesDao implements Categories {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
                     config.getUrl(),
-                    config.getUser(),
+                    config.getUsername(),
                     config.getPassword()
             );
         } catch (SQLException e) {

@@ -1,6 +1,6 @@
 package com.codeup.adlister.dao;
 
-import com.codeup.adlister.Config;
+import com.codeup.adlister.dao.Config;
 
 public class DaoFactory {
     private static Ads adsDao;
@@ -30,7 +30,7 @@ public class DaoFactory {
         return categoriesDao;
     }
 
-    public static  MySQLCategoryAdLinkDao getMySQLCategoryAdLinkDao() {
+    public static MySQLCategoryAdLinkDao getMySQLCategoryAdLinkDao() {
         if (categoryAdLinkDao == null) {
             categoryAdLinkDao = new MySQLCategoryAdLinkDao(config);
         }
