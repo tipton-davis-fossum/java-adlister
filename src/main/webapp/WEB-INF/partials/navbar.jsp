@@ -30,6 +30,7 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <a class="mr-3 text-light" href="/"><i class="fas fa-home"></i></a>
     <a class="navbar-brand" href="/ads">Adlister</a>
+    <a class="navbar-brand" href="/ads/create">Create Ad</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

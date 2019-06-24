@@ -13,20 +13,26 @@
 <script>
     let ads = [];
 
+
     let searchBar = document.querySelector("#title");
     searchBar.addEventListener('input',updateAds);
 
+    let categories;
     <c:forEach var="ad" items="${ads}">
-    ads.push(
+        categories=[];
+        <c:if test="${categories.containsKey(ad.id)}">
+            categories = ${categories.get(ad.id)};
+        </c:if>
+        ads.push(
         {
             id:${ad.id},
             title:"${ad.title}",
             description:"${ad.description}",
             userID:${ad.userId},
+            categories:categories,
             htmlDisplay:"${ad.getDisplay()}"
         });
     </c:forEach>
-
     function renderAd(ad) {
         return ad.htmlDisplay
     }
@@ -34,7 +40,7 @@
         let html = '<div class="col-12 mx-auto">';
         for(let i = 0; i < ads.length; i++) {
             html += renderAd(ads[i]);
-            console.log(html);
+            // console.log(html);
         }
         html+='</div>';
         return html;

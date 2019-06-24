@@ -2,6 +2,8 @@ package com.codeup.adlister.models;
 
 import com.codeup.adlister.dao.DaoFactory;
 
+import java.util.List;
+
 public class Ad {
     private long id;
     private long userId;
@@ -52,9 +54,20 @@ public class Ad {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    public String getCategoriesDisplay(List<Category>categories){
+        String htmlBuffer="";
+        for(Category category : categories){
+            String tb="";
+            tb+="<div class='mx-2'>";
+            tb+=    "<a href='/category/"+category.getCategory()+"'>#"+category.getCategory()+"</a>";
+            tb+="</div>";
+            htmlBuffer+=tb;
+        }
+        return htmlBuffer;
+    }
     public String getDisplay(){
         User adAuthor = DaoFactory.getUsersDao().findById(this.userId);
+        List<Category> categories = DaoFactory.getCategoryAdLinkDao().findCategories(this);
         String htmlBuffer=
                 "<div class='card my-3'>" +
                 "   <div class='card-body'>" +
@@ -62,6 +75,11 @@ public class Ad {
                 "       <p>"+this.description+"</p>" +
                 "       <a href='/profile/"+adAuthor.getId()+"'>"+adAuthor.getUsername()+"</a>"+
                 "   </div>" +
+                "   <div class='card-footer text-muted'>" +
+                "       <div class='row'>"+
+                "           " + getCategoriesDisplay(categories) +
+                "       </div>"+
+                "   </div>"+
                 "</div>";
         return htmlBuffer;
     }
