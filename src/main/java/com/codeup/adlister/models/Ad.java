@@ -58,7 +58,7 @@ public class Ad {
         String htmlBuffer="";
         for(Category category : categories){
             String tb="";
-            tb+="<div class='mx-2'>";
+            tb+="<div class='mx-2 category py-1'>";
             tb+=    "<a href='/category/"+category.getCategory()+"'>#"+category.getCategory()+"</a>";
             tb+="</div>";
             htmlBuffer+=tb;
@@ -74,12 +74,12 @@ public class Ad {
                 "       <h3>"+this.title+"</h3>" +
                 "       <p>"+this.description+"</p>" +
                 "       <a href='/profile/"+adAuthor.getId()+"'>"+adAuthor.getUsername()+"</a>"+
-                "   </div>" +
-                "   <div class='card-footer text-muted'>" +
+                "   </div>" + (categories.size() > 0 ?
+                "   <div class='card-footer text-muted py-0'>" +
                 "       <div class='row'>"+
                 "           " + getCategoriesDisplay(categories) +
                 "       </div>"+
-                "   </div>"+
+                "   </div>" : "") +
                 "</div>";
         return htmlBuffer;
     }
