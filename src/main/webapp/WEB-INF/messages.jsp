@@ -3,7 +3,7 @@
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
-        <jsp:param name="title" value="Direct Message" />
+        <jsp:param name="title" value="DM - @${messageUser.username}" />
     </jsp:include>
     <style>
         #MessageHolder{
@@ -44,6 +44,7 @@
             var formData = $(this).serializeArray();
             $.post(url, formData);
             $("#MessageContent").val("");
+            $("#MessageContent").focus();
             getMessages();
         }
     })
