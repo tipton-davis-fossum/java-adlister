@@ -75,6 +75,9 @@ public class MySQLAdsDao implements Ads {
             PreparedStatement statement = connection.prepareStatement(adByIDQuery);
             statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
+            if(!rs.next()){
+                return null;
+            }
             return extractAd(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving the ad with ID: " + id, e);
@@ -82,15 +85,29 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
-    public void updateAd(Ad ad) throws SQLException {
-        String updateAdQuery = "UPDATE ads SET title = ?, description = ? WHERE id = ?";
-        PreparedStatement statement = connection.prepareStatement(updateAdQuery);
-        statement.setLong(1, ad.getId());
-        statement.setString(2, ad.getTitle());
-        statement.setString(3, ad.getDescription());
-        statement.executeUpdate();
+    public void updateAd(Ad ad){
+        try {
+            String updateAdQuery = "UPDATE ads SET title = ?, description = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(updateAdQuery);
+            statement.setLong(1, ad.getId());
+            statement.setString(2, ad.getTitle());
+            statement.setString(3, ad.getDescription());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating the ad with ID: " + ad.getId(), e);
+        }
     }
-
+    @Override
+    public void deleteAdByID(Long id) {
+        try{
+            String updateAdQuery = "DELETE FROM ads WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(updateAdQuery);
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting the ad with ID: " + id, e);
+        }
+    }
 
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(

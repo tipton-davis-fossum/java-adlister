@@ -1,3 +1,4 @@
+<%@ page import="com.codeup.adlister.models.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
     .category{
@@ -23,6 +24,7 @@
     searchBar.addEventListener('input',updateAds);
 
     let categories;
+
     <c:forEach var="ad" items="${ads}">
         categories=[];
         <c:if test="${categories.containsKey(ad.id)}">
@@ -35,7 +37,7 @@
             description:"${ad.description}",
             userID:${ad.userId},
             categories:categories,
-            htmlDisplay:"${ad.getDisplay()}"
+            htmlDisplay:"${ad.getDisplay(user != null ? user.getId() : -1)}"
         });
     </c:forEach>
     function renderAd(ad) {

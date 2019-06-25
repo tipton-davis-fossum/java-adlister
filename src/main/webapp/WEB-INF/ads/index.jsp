@@ -29,9 +29,5 @@
 </div>
 
 </body>
-<<<<<<< HEAD
 
 </html>
-=======
-</html>
->>>>>>> 9daa8a5a1300e3dedfb14e953e7dd7ce1db2fb33

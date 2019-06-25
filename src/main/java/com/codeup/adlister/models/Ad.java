@@ -65,16 +65,33 @@ public class Ad {
         }
         return htmlBuffer;
     }
-    public String getDisplay(){
+    public String getDisplay(Long loggedInUserID){
         User adAuthor = DaoFactory.getUsersDao().findById(this.userId);
         List<Category> categories = DaoFactory.getCategoryAdLinkDao().findCategories(this);
         String htmlBuffer=
                 "<div class='card my-3'>" +
                 "   <div class='card-body'>" +
-                "       <h3>"+this.title+"</h3>" +
-                "       <p>"+this.description+"</p>" +
-                "       <a href='/profile/"+adAuthor.getId()+"'>"+adAuthor.getUsername()+"</a>"+
-                "   </div>" + (categories.size() > 0 ?
+                "       <div class='row'>"+
+                "           <div class='col-11'>"+
+                "               <h3>"+this.title+"</h3>" +
+                "           </div>"+ (loggedInUserID == adAuthor.getId() ?
+                "           <div class='col-1'>"+
+                "               <form action='/ads/delete' method='post'>"+
+                "                   <button class='btn btn-sm btn-danger' type='submit' name='delete' value='"+this.id+"'>X</button>"+
+                "               </form>"+
+                "           </div>" : "") +
+                "       </div>"+
+                "       <div class='row'>"+
+                "           <div class='col'>"+
+                "               <p>"+this.description+"</p>" +
+                "           </div>"+
+                "       </div>"+
+                "       <div class='row'>"+
+                "           <div class='col'>"+
+                "               <a href='/profile/"+adAuthor.getId()+"'>"+adAuthor.getUsername()+"</a>"+
+                "           </div>"+
+                "       </div>"+
+                "   </div>"+ (categories.size() > 0 ?
                 "   <div class='card-footer text-muted py-0'>" +
                 "       <div class='row'>"+
                 "           " + getCategoriesDisplay(categories) +
