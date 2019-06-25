@@ -2,9 +2,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <jsp:include page="/WEB-INF/partials/head.jsp">
-        <jsp:param name="title" value="Your Profile"/>
-    </jsp:include>
+    <c:if test="${sessionScope.profileUser.id == sessionScope.user.id}">
+        <jsp:include page="/WEB-INF/partials/head.jsp">
+            <jsp:param name="title" value="Your Profile"/>
+        </jsp:include>
+    </c:if>
+    <c:if test="${sessionScope.profileUser.id != sessionScope.user.id}">
+        <jsp:include page="/WEB-INF/partials/head.jsp">
+            <jsp:param name="title" value="${sessionScope.profileUser.username}'s profile"/>
+        </jsp:include>
+    </c:if>
     <style>
         .profileImage{
             width:100px;
