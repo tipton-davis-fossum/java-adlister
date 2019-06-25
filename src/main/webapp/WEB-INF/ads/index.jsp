@@ -13,7 +13,7 @@
 
 <jsp:include page="/WEB-INF/partials/navbar.jsp"/>
 
-<div class="container-fluid p-3">
+<div class="container-fluid p-3 search-ads">
     <div class="row">
         <div class="col-8 mx-auto">
             <c:if test="${Category != null}">

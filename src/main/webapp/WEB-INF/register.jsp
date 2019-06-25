@@ -12,8 +12,8 @@
     </jsp:include>
     <div class="container-fluid p-3">
         <div class="row">
-            <div class="col-8 mx-auto">
-                <h1>Please fill in your information.</h1>
+            <div class="col-8 mx-auto register-body">
+                <h1 class="register-caption">Please fill in your information.</h1>
                 <form action="/register" method="post">
                     <div class="form-group">
                         <label for="username">Username</label>
@@ -36,7 +36,7 @@
                                 ${FormError}
                         </div>
                     </c:if>
-                    <input type="submit" class="btn btn-primary btn-block">
+                    <input type="submit" class="btn btn-block register-btn">
                 </form>
             </div>
         </div>
