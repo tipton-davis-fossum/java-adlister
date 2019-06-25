@@ -14,7 +14,8 @@ public interface Ads {
     // show user their ads
     List<Ad> adsByUser(User user);
 
-    void update(Ad ad);
-
     Ad getAdById(Long id);
+
+    void updateAd(Ad ad) throws SQLException;
+
 }
