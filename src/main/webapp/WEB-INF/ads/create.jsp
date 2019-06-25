@@ -49,13 +49,13 @@
     <main class="container-fluid p-3 mx-auto">
         <div class="row">
             <div class="col-8 mx-auto">
-                <h1 class="page-heading text-center">Create a new Ad:</h1>
+                <h1 class="page-heading text-center create-heading">Create a new Ad:</h1>
             </div>
         </div>
         <div class="row">
-            <div class="col-8 mx-auto">
+            <div class="col-8 mx-auto create-form">
                 <article class="card w-75 mx-auto">
-                    <div class="card-body">
+                    <div class="card-body create-form">
                         <h2 class="card-title">Please enter the ads details:</h2>
                         <h5 class="card-title">Your ad will need a title, description, and categories.</h5>
                         <hr>
@@ -78,7 +78,7 @@
                             <div id="categories" class="form-group row">
 
                             </div>
-                            <input type="submit" class="btn btn-block my-2 nuts" value="Create Ad">
+                            <input type="submit" class="btn btn-block my-2 nuts create-btn" value="Create Ad">
                         </form>
                     </div>
                 </article>

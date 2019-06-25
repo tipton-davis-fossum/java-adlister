@@ -1,0 +1,176 @@
+
+/*HOME PAGE*/
+
+body {
+    background-color: #A56FAE;
+}
+
+.welcome {
+    font-family: 'Rubik Mono One', sans-serif;
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+
+    -webkit-animation: fadein 2s;
+    animation: fadein 2s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/*REGISTER*/
+
+.register-body {
+    background-color: rgba(255, 255, 255, .5);
+    border-radius: 5px;
+}
+
+.register-btn {
+    background-color: transparent;
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+}
+
+.register-btn:hover {
+    background-color: #FFFFFF;
+    border-color: #A56FAE;
+    color: #A56FAE;
+}
+
+.register-caption {
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+}
+
+/*LOGIN*/
+
+.login-body {
+    background-color: rgba(255, 255, 255, .5);
+    border-radius: 5px;
+}
+
+.login-btn {
+    background-color: transparent;
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+}
+
+.login-btn:hover {
+    background-color: #FFFFFF;
+    border-color: #A56FAE;
+    color: #A56FAE;
+}
+
+.login-caption {
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+}
+
+/*NAVBAR*/
+
+.nav-item{
+    padding-top:8px;
+    padding-bottom:8px;
+}
+#mailNav{
+    position:relative;
+    top:-1px;
+    left:4px;
+}
+.nav-item .fa-envelope{
+    position:relative;
+    top:2px;
+    left:-3px;
+}
+
+.nav-style {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.nav-style:hover {
+    text-decoration: none;
+    color: #CAA9CF;
+}
+
+.nav-login {
+    padding: 7px;
+}
+
+.nav-register {
+    padding: 7px;
+}
+
+.navbar-brand {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.navbar-brand:hover {
+    text-decoration: none;
+    color: #CAA9CF;
+}
+
+/*PROFILE*/
+
+.profile-body {
+    background-color: #A56FAE;
+}
+
+.profile-username {
+    font-family: 'Rubik Mono One', sans-serif;
+    color: #FFFFFF;
+}
+
+.profile-email {
+    font-family: 'Rubik Mono One', sans-serif;
+    color: #FFFFFF;
+}
+
+/*CREATE ADS*/
+
+.create-heading {
+    font-family: 'Rubik Mono One', sans-serif;
+    font-size: xx-large;
+}
+
+.card-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: medium;
+}
+
+.card-body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.create-form {
+    background-color: rgba(255, 255, 255, .5);
+    border-radius: 5px;
+}
+
+/*SEARCH ADS*/
+
+/*.search-ads {*/
+    /*padding: 25px;*/
+    /*position: fixed;*/
+    /*top: 50%;*/
+/*}*/
+
+.create-btn {
+    background-color: #A56FAE;
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+}
+
+.create-btn:hover {
+    background-color: #FFFFFF;
+    border-color: #A56FAE;
+    color: #A56FAE;
+}

@@ -12,7 +12,7 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp"/>
 
-<div class="container-fluid">
+<div class="container-fluid welcome">
 
    <h1 class="mt-0">Welcome to the Adlister</h1>
 

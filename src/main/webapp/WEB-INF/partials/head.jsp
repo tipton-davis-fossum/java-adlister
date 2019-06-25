@@ -12,5 +12,6 @@
           href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
           crossorigin="anonymous">
-    <link href="../css/front-page.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="/css/front-page.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald|Rubik+Mono+One&display=swap" rel="stylesheet">
 </head>

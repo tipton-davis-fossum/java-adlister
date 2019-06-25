@@ -12,8 +12,8 @@
     </jsp:include>
     <div class="container-fluid p-3">
         <div class="row">
-            <div class="col-8 mx-auto">
-                <h1>Please Log In</h1>
+            <div class="col-8 mx-auto login-body">
+                <h1 class="login-caption">Please Log In</h1>
                 <form action="/login" method="POST">
                     <div class="form-group">
                         <label for="username">Username</label>
@@ -28,7 +28,7 @@
                             ${FormError}
                         </div>
                     </c:if>
-                    <input type="submit" class="btn btn-primary btn-block" value="Log In">
+                    <input type="submit" class="btn btn-block login-btn" value="Log In">
                 </form>
             </div>
         </div>

@@ -1,22 +1,6 @@
 <%@ page import="com.codeup.adlister.dao.DaoFactory" %>
 <%@ page import="com.codeup.adlister.models.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<style>
-    .nav-item{
-        padding-top:8px;
-        padding-bottom:8px;
-    }
-    #mailNav{
-        position:relative;
-        top:-1px;
-        left:4px;
-    }
-    .nav-item .fa-envelope{
-        position:relative;
-        top:2px;
-        left:-3px;
-    }
-</style>
 
 <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -29,8 +13,8 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark py-0">
     <!-- Brand and toggle get grouped for better mobile display -->
     <a class="mr-3 text-light" href="/"><i class="fas fa-home"></i></a>
-    <a class="navbar-brand" href="/ads">Adlister</a>
-    <a class="navbar-brand" href="/ads/create">Create Ad</a>
+    <a class="navbar-brand nav-style" href="/ads">Adlister</a>
+    <a class="navbar-nav nav-style" href="/ads/create">Create Ad</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -50,12 +34,12 @@
                             <i class="fas fa-envelope"></i>
                         </a>
                     </li>
-                    <li class="nav-item <c:if test="${param.current.equals('profile')}">active</c:if>"><a href="/profile/${user.getId()}" class="nav-link">Profile (${user.getUsername()})</a></li>
-                    <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+                    <li class="nav-item nav-style <c:if test="${param.current.equals('profile')}">active</c:if>"><a href="/profile/${user.getId()}" class="nav-link nav-style">Profile (${user.getUsername()})</a></li>
+                    <li class="nav-item nav-style"><a href="/logout" class="nav-link nav-style">Logout</a></li>
                 </c:when>
                 <c:otherwise>
-                    <li class="nav-item <c:if test="${param.current.equals('register')}">active</c:if>"><a href="/register" class="nav-link">Register</a></li>
-                    <li class="nav-item <c:if test="${param.current.equals('login')}">active</c:if>"><a href="/login" class="nav-link">Login</a></li>
+                    <li class="navbar-nav nav-style <c:if test="${param.current.equals('register')}">active</c:if>"><a href="/register" class="navbar-nav nav-style nav-register">Register</a></li>
+                    <li class="navbar-nav nav-style <c:if test="${param.current.equals('login')}">active</c:if>"><a href="/login" class="navbar-nav nav-style nav-login">Login</a></li>
                 </c:otherwise>
             </c:choose>
         </ul>

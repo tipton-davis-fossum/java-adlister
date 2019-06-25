@@ -35,12 +35,13 @@
         }
     </style>
 </head>
+
 <body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp">
         <jsp:param name="current" value="profile"/>
     </jsp:include>
 
-    <div class="container-fluid p-3">
+    <div class="container-fluid p-3 profile-body">
         <div class="row">
             <div class="col-8 mx-auto">
                 <div class="row my-3">
@@ -50,8 +51,8 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-8">
-                        <h3 id="usernameDisplay" class="text-center text-md-left">${sessionScope.profileUser.username}</h3>
-                        <h4 id="emailDisplay" class="text-center text-md-left">${sessionScope.profileUser.email}</h4>
+                        <h3 id="usernameDisplay" class="text-center text-md-left profile-username">${sessionScope.profileUser.username}</h3>
+                        <h4 id="emailDisplay" class="text-center text-md-left profile-email">${sessionScope.profileUser.email}</h4>
                         <c:if test="${sessionScope.profileUser.id == sessionScope.user.id}">
                             <h5 id="editDisplay" class="text-center text-md-left"><i id="EditProfile" class="fas fa-user-edit"></i></h5>
                             <form id="editProfileForm" class="text-center text-md-left" method="post" style="display:none">
