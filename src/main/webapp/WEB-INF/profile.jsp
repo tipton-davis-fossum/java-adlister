@@ -85,7 +85,9 @@
             </div>
         </div>
     </div>
-
+    <script>
+        $("#profileImage").attr("src",$("#profileImage").attr("src")+"?"+Math.random());
+    </script>
     <c:if test="${sessionScope.profileUser.id == sessionScope.user.id}">
         <script>
             <c:if test="${FormError != null}">
