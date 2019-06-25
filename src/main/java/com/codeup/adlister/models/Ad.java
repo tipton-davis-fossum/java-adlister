@@ -69,7 +69,7 @@ public class Ad {
         User adAuthor = DaoFactory.getUsersDao().findById(this.userId);
         List<Category> categories = DaoFactory.getCategoryAdLinkDao().findCategories(this);
         String htmlBuffer=
-                "<div class='card my-3'>" +
+                "<div class='card my-3 mx-auto col-5 p-0'>" +
                 "   <div class='card-body'>" +
                 "       <div class='row'>"+
                 "           <div class='col-11'>"+
