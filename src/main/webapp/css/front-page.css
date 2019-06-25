@@ -3,7 +3,9 @@
 body {
     background-color: #A56FAE;
 }
-
+#mailUser{
+    color:black;
+}
 .welcome {
     font-family: 'Rubik Mono One', sans-serif;
     color: white;
