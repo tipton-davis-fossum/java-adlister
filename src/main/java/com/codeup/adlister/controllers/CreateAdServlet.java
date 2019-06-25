@@ -64,9 +64,13 @@ public class CreateAdServlet extends HttpServlet {
             description
         );
         ad.setId(DaoFactory.getAdsDao().insert(ad));
-        for(String cat : categories) {
-            Category curCat = DaoFactory.getCategoriesDao().findCategoryByName(cat);
-            DaoFactory.getCategoryAdLinkDao().addAdToCategory(ad,curCat);
+        try{
+            for(String cat : categories) {
+                Category curCat = DaoFactory.getCategoriesDao().findCategoryByName(cat);
+                DaoFactory.getCategoryAdLinkDao().addAdToCategory(ad,curCat);
+            }
+        }catch(Exception e){
+            System.out.println(e);
         }
         response.sendRedirect("/ads");
     }

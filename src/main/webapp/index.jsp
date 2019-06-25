@@ -14,7 +14,7 @@
 
 <div class="container-fluid welcome">
 
-   <h1 class="mt-0">Welcome to the Adlister</h1>
+   <h1 class="mt-0 welcome">Welcome to the Adlister</h1>
 
 </div>
 

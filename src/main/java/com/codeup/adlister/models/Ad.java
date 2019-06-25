@@ -65,16 +65,42 @@ public class Ad {
         }
         return htmlBuffer;
     }
-    public String getDisplay(){
+    public String getDescriptionDisplay(){
+        return this.description.replace("\r\n","</br>");
+    }
+
+    public String getDisplay(Long loggedInUserID){
         User adAuthor = DaoFactory.getUsersDao().findById(this.userId);
         List<Category> categories = DaoFactory.getCategoryAdLinkDao().findCategories(this);
         String htmlBuffer=
-                "<div class='card my-3'>" +
+                "<div class='card my-3 mx-auto col-5 p-0'>" +
                 "   <div class='card-body'>" +
-                "       <h3>"+this.title+"</h3>" +
-                "       <p>"+this.description+"</p>" +
-                "       <a href='/profile/"+adAuthor.getId()+"'>"+adAuthor.getUsername()+"</a>"+
-                "   </div>" + (categories.size() > 0 ?
+                "       <div class='row'>"+
+                "           <div class='col-8'>"+
+                "               <h3>"+this.title+"</h3>" +
+                "           </div>"+ (loggedInUserID == adAuthor.getId() ?
+                "           <div class='col-2'>"+
+                "               <a href='/ads/update/"+this.id+"'>"+
+                "                   <button class='btn btn-sm btn-info'>Edit</button>"+
+                "               </a>"+
+                "           </div>"+
+                "           <div class='col-1'>"+
+                "               <form action='/ads/delete' method='post'>"+
+                "                   <button class='btn btn-sm btn-danger' type='submit' name='delete' value='"+this.id+"'>X</button>"+
+                "               </form>"+
+                "           </div>" : "") +
+                "       </div>"+
+                "       <div class='row'>"+
+                "           <div class='col'>"+
+                "               <p>"+this.getDescriptionDisplay()+"</p>" +
+                "           </div>"+
+                "       </div>"+
+                "       <div class='row'>"+
+                "           <div class='col'>"+
+                "               <a href='/profile/"+adAuthor.getId()+"'>"+adAuthor.getUsername()+"</a>"+
+                "           </div>"+
+                "       </div>"+
+                "   </div>"+ (categories.size() > 0 ?
                 "   <div class='card-footer text-muted py-0'>" +
                 "       <div class='row'>"+
                 "           " + getCategoriesDisplay(categories) +

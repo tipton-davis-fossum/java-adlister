@@ -87,4 +87,15 @@ public class MySQLCategoryAdLinkDao {
         }
         return ads;
     }
+
+    public void deleteLinkByAdID(Long id) {
+        try{
+            String updateAdQuery = "DELETE FROM ad_categories WHERE ad_id = ?";
+            PreparedStatement statement = connection.prepareStatement(updateAdQuery);
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error deleting the ad-category link with AD ID: " + id, e);
+        }
+    }
 }
