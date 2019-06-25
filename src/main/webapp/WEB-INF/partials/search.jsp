@@ -1,38 +1,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<style>
+    .category{
+        font-size:0.8em;
+    }
+</style>
 <div class="row">
-    <div class="col-12 mx-auto input-group input-group-lg">
+    <div class="col-12 mx-auto input-group input-group-md">
         <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroup-sizing-lg">Search our ads</span>
+            <span class="input-group-text" id="inputGroup-sizing-md">Search our ads</span>
         </div>
         <input type="text" name="title" id="title" class="form-control" aria-label="Sizing example input"
-               aria-describedby="inputGroup-sizing-lg" placeholder="search">
+               aria-describedby="inputGroup-sizing-md" placeholder="search">
     </div>
 </div>
 <div id="adList" class="row">
 </div>
-
-<script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous">
-</script>
 <script>
     let ads = [];
+
 
     let searchBar = document.querySelector("#title");
     searchBar.addEventListener('input',updateAds);
 
+    let categories;
     <c:forEach var="ad" items="${ads}">
-    ads.push(
+        categories=[];
+        <c:if test="${categories.containsKey(ad.id)}">
+            categories = ${categories.get(ad.id)};
+        </c:if>
+        ads.push(
         {
             id:${ad.id},
             title:"${ad.title}",
             description:"${ad.description}",
             userID:${ad.userId},
+            categories:categories,
             htmlDisplay:"${ad.getDisplay()}"
         });
     </c:forEach>
-
     function renderAd(ad) {
         return ad.htmlDisplay
     }
@@ -40,7 +45,7 @@
         let html = '<div class="col-12 mx-auto">';
         for(let i = 0; i < ads.length; i++) {
             html += renderAd(ads[i]);
-            console.log(html);
+            // console.log(html);
         }
         html+='</div>';
         return html;

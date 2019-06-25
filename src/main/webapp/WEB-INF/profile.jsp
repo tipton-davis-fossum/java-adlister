@@ -2,7 +2,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Profile</title>
     <jsp:include page="/WEB-INF/partials/head.jsp">
         <jsp:param name="title" value="Your Profile"/>
     </jsp:include>
@@ -25,6 +24,15 @@
             height:0px;
             overflow:hidden;
         }
+        #mailUser:hover .fa-envelope,
+        #mailUser .fa-envelope-open {
+            display: none;
+        }
+        #mailUser:hover .fa-envelope-open {
+            display: inline;
+            position:relative;
+            top:-2px;
+        }
     </style>
 </head>
 <body>
@@ -41,12 +49,12 @@
                             <img id="profileImage" class="profileImage"  src="/img/profile_${sessionScope.profileUser.getId()}" alt=""/>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-9">
+                    <div class="col-sm-12 col-md-8">
                         <h3 id="usernameDisplay" class="text-center text-md-left">${sessionScope.profileUser.username}</h3>
                         <h4 id="emailDisplay" class="text-center text-md-left">${sessionScope.profileUser.email}</h4>
                         <c:if test="${sessionScope.profileUser.id == sessionScope.user.id}">
                             <h5 id="editDisplay" class="text-center text-md-left"><i id="EditProfile" class="fas fa-user-edit"></i></h5>
-                            <form id="editProfileForm" method="post" style="display:none">
+                            <form id="editProfileForm" class="text-center text-md-left" method="post" style="display:none">
                                 <input id="username"  type="text" name="username" placeholder="${sessionScope.profileUser.username}" value="<c:if test="${requestScope.username != null}">${requestScope.username}</c:if><c:if test="${requestScope.username == null}">${sessionScope.profileUser.username}</c:if>"/><br/>
                                 <input id="email"  type="text" name="email" placeholder="${sessionScope.profileUser.email}" value="<c:if test="${requestScope.email != null}">${requestScope.email}</c:if><c:if test="${requestScope.email == null}">${sessionScope.profileUser.email}</c:if>"/><br/>
                                 <c:if test="${FormError != null}">
@@ -54,8 +62,16 @@
                                             ${FormError}
                                     </div>
                                 </c:if>
-                                <button type="submit">Submit</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
+                        </c:if>
+                    </div>
+                    <div class="col-sm-12 col-md-1 text-center">
+                        <c:if test="${sessionScope.profileUser.id != sessionScope.user.id}">
+                            <a href="/messages/${sessionScope.profileUser.id}" id="mailUser" class="text-right text-md-left">
+                                <i class="fas fa-envelope-open"></i>
+                                <i class="fas fa-envelope"></i>
+                            </a>
                         </c:if>
                     </div>
                     <c:if test="${sessionScope.profileUser.id == sessionScope.user.id}">
@@ -71,11 +87,6 @@
     </div>
 
     <c:if test="${sessionScope.profileUser.id == sessionScope.user.id}">
-        <script
-                src="https://code.jquery.com/jquery-3.4.1.min.js"
-                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-                crossorigin="anonymous">
-        </script>
         <script>
             <c:if test="${FormError != null}">
                 $("#usernameDisplay").hide();
