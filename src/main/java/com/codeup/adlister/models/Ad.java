@@ -72,7 +72,7 @@ public class Ad {
                 "<div class='card my-3 mx-auto col-5 p-0'>" +
                 "   <div class='card-body'>" +
                 "       <div class='row'>"+
-                "           <div class='col-11'>"+
+                "           <div class='col-10'>"+
                 "               <h3>"+this.title+"</h3>" +
                 "           </div>"+ (loggedInUserID == adAuthor.getId() ?
                 "           <div class='col-1'>"+
