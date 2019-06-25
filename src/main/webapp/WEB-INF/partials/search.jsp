@@ -34,7 +34,7 @@
         {
             id:${ad.id},
             title:"${ad.title}",
-            description:"${ad.description}",
+            description:"${ad.getDescriptionDisplay()}",
             userID:${ad.userId},
             categories:categories,
             htmlDisplay:"${ad.getDisplay(user != null ? user.getId() : -1)}"

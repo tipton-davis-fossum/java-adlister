@@ -65,6 +65,10 @@ public class Ad {
         }
         return htmlBuffer;
     }
+    public String getDescriptionDisplay(){
+        return this.description.replace("\r\n","</br>");
+    }
+
     public String getDisplay(Long loggedInUserID){
         User adAuthor = DaoFactory.getUsersDao().findById(this.userId);
         List<Category> categories = DaoFactory.getCategoryAdLinkDao().findCategories(this);
@@ -72,9 +76,14 @@ public class Ad {
                 "<div class='card my-3 mx-auto col-5 p-0'>" +
                 "   <div class='card-body'>" +
                 "       <div class='row'>"+
-                "           <div class='col-10'>"+
+                "           <div class='col-8'>"+
                 "               <h3>"+this.title+"</h3>" +
                 "           </div>"+ (loggedInUserID == adAuthor.getId() ?
+                "           <div class='col-2'>"+
+                "               <a href='/ads/update/"+this.id+"'>"+
+                "                   <button class='btn btn-sm btn-info'>Edit</button>"+
+                "               </a>"+
+                "           </div>"+
                 "           <div class='col-1'>"+
                 "               <form action='/ads/delete' method='post'>"+
                 "                   <button class='btn btn-sm btn-danger' type='submit' name='delete' value='"+this.id+"'>X</button>"+
@@ -83,7 +92,7 @@ public class Ad {
                 "       </div>"+
                 "       <div class='row'>"+
                 "           <div class='col'>"+
-                "               <p>"+this.description+"</p>" +
+                "               <p>"+this.getDescriptionDisplay()+"</p>" +
                 "           </div>"+
                 "       </div>"+
                 "       <div class='row'>"+
