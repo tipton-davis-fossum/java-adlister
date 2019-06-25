@@ -15,9 +15,9 @@ public class MySQLAdsDao implements Ads {
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
-                config.getUrl(),
-                config.getUsername(),
-                config.getPassword()
+                    config.getUrl(),
+                    config.getUsername(),
+                    config.getPassword()
             );
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
@@ -60,7 +60,7 @@ public class MySQLAdsDao implements Ads {
         try {
             String userAdsQuery = "SELECT * FROM ads WHERE user_id = ?";
             PreparedStatement statement = connection.prepareStatement(userAdsQuery);
-            statement.setLong(1,user.getId());
+            statement.setLong(1, user.getId());
             ResultSet rs = statement.executeQuery();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
@@ -69,22 +69,28 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
-    public void update(Ad ad) {
-
-    }
-
-    @Override
     public Ad getAdById(Long id) {
         try {
             String adByIDQuery = "SELECT * FROM ads WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(adByIDQuery);
-            statement.setLong(1,id);
+            statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
             return extractAd(rs);
         } catch (SQLException e) {
-            throw new RuntimeException("Error retrieving the ad with ID: "+id, e);
+            throw new RuntimeException("Error retrieving the ad with ID: " + id, e);
         }
     }
+
+    @Override
+    public void updateAd(Ad ad) throws SQLException {
+        String updateAdQuery = "UPDATE ads SET title = ?, description = ? WHERE id = ?";
+        PreparedStatement statement = connection.prepareStatement(updateAdQuery);
+        statement.setLong(1, ad.getId());
+        statement.setString(2, ad.getTitle());
+        statement.setString(3, ad.getDescription());
+        statement.executeUpdate();
+    }
+
 
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
